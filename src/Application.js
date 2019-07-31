@@ -34,10 +34,19 @@ class Application extends Component {
     }
 
     calculateResult = (e) => {
-        this.setState({
-            result: eval(this.state.expression),
-            resetStateOnNextNumber: true
-        });
+        let regex = /((^(\d+[*/+-])+\d+$)|(^\d+$))/g;
+        if (regex.test(this.state.expression) === true) {
+            this.setState({
+                result: eval(this.state.expression),
+                resetStateOnNextNumber: true
+            });
+        } else {
+            this.setState({
+                result: '"' + this.state.expression + '" is an invalid expression!',
+                expression: ''
+            });
+        }
+        
     }
 
     render() {
